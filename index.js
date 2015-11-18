@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var Article = require('./db').Article;
+var webshot = require('webshot');
 var read = require('node-readability');
 
 var app = express();
@@ -34,6 +35,8 @@ app.delete('/articles/:id', function (req, res, next) {
 app.post('/articles', function (req, res, next) {
     var url = req.body.url;
     read(url, function (err, result) {
+
+
         Article.create(
             {title: result.title, content: result.content},
             function (err, article) {
@@ -44,7 +47,21 @@ app.post('/articles', function (req, res, next) {
     });
 });
 
+app.get('/image/:id', function (req, res, next) {
+    var options = {
+        screenSize: {
+            width: 300,
+            height: 300
+        },
+        siteType: 'html'
+    };
+    var id = req.params.id;
+    Article.find(id, function (err, article) {
+        if (err) return next(err);
+        webshot(article.content, options).pipe(res);
+    });
+});
+
 app.listen(process.env.PORT || 3000);
 
 module.exports = app;
-
