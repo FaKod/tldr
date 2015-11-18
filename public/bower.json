@@ -1,0 +1,9 @@
+{
+  "name": "tldr",
+  "version": "1.0.0",
+  "dependencies": {
+    "iron-elements": "PolymerElements/iron-elements#^1",
+    "paper-elements": "PolymerElements/paper-elements#^1",
+    "polymer": "Polymer/polymer#^1"
+  }
+}

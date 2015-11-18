@@ -1,0 +1,28 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="article-list">
+    <template>
+        <iron-ajax
+                id="articles"
+                url="http://localhost:3000/articles"
+                handle-as="json"
+                last-response="{{articles}}"
+                auto>
+        </iron-ajax>
+
+        <ul id="articlesList">
+            <template is="dom-repeat" items="[[articles]]">
+                <li>
+                    [[item.title]]
+                </li>
+            </template>
+        </ul>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'article-list'
+        });
+    </script>
+</dom-module>
